@@ -7,6 +7,9 @@ const puppeteer = require('puppeteer');
     await page.waitFor(1000)
 
 
+
+    // collecting all the pages... 
+
     await page.waitForSelector('.hidden-xs-down');
     let pageList = await page.evaluate(
         () => Array.from(document.querySelectorAll('.hidden-xs-down > .hidden-xs-down'),a => a.href)) 
@@ -30,7 +33,7 @@ const puppeteer = require('puppeteer');
     }
 
 
-    //doctors
+    // collect all the doctors Link from pages ...
 
     let getDoctorList = async (link) => {
 
@@ -39,7 +42,6 @@ const puppeteer = require('puppeteer');
     let doctorsList = await page.evaluate(
       () => Array.from(document.querySelectorAll('.result-name'), a => a.href) ) 
 
-    // doctorsList.forEach((doc , index) => console.log(index , doc))
         return doctorsList
     }
 
@@ -50,12 +52,14 @@ const puppeteer = require('puppeteer');
             fullDoctorList.push(...docTemp)
         };
 
+
+        // collect info of every doctor...
+
         let mainOutput = [] 
 
         for(let eachDoc of fullDoctorList){
 
             await page.goto(`${eachDoc}` , {waitUntil: 'load', timeout: 0}) 
-            await page.screenshot({path: 'screenshot.png'});
             await page.waitForSelector('.profile-name-phone');
 
           let name = await page.evaluate(
@@ -74,6 +78,9 @@ const puppeteer = require('puppeteer');
             eachDoctorDetails.phoneNumber = phoneNumber ;
             eachDoctorDetails.details = details ;
 
+
+            // checking if he/she has a website
+
             const hasWebsite = await page.evaluate(
               ()=>  document.querySelector('[data-event-label="website"]'))
 
@@ -87,6 +94,10 @@ const puppeteer = require('puppeteer');
                       () => document.URL
                   )
                   eachDoctorDetails.Url = Url ;
+
+
+
+            // checking if he/she has a email in website
 
                 const fullPageContent = await page.evaluate(() => document.querySelector('*').outerHTML);
 
@@ -103,36 +114,6 @@ const puppeteer = require('puppeteer');
 
 
     // await browser.close();
-    // await page.screenshot({path: 'screenshot.png'});
+    await page.screenshot({path: 'screenshot.png'});
   })();
 
-
-
-
-
-
-
-
-
-// const puppeteer = require('puppeteer');
-// (async () => {
-//     const browser = await puppeteer.launch({headless: false , ignoreHTTPSErrors: true});
-//     const page = await browser.newPage();
-//     await page.setViewport({ width: 1280, height: 800 });
-//     await page.goto('https://www.recoverywaterscounseling.com/' , {waitUntil: 'load', timeout: 0});
-//     await page.waitFor(1000)
-
-//         // const content = await page.evaluate(
-//         //       ()=>  document.querySelector('[data-event-label="website"]'))
-
-//         const fullPageContent = await page.evaluate(() => document.querySelector('*').outerText);
-
-//         var email  = fullPageContent.match(/[\w\.-]+@[\w\.-]+\.\w{2,4}/)[0]
-
-//           console.log(email);
-          
-              
-
-//     await page.screenshot({path: 'screenshot.png'});
-//     // await browser.close();
-//   })();
