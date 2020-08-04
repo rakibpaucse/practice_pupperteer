@@ -1,4 +1,4 @@
-#scrapper using Pupperteer
+##scrapper using Pupperteer
 This project is used to scrap all the doctors list and their info from [here](https://www.psychologytoday.com/)
 
 
@@ -6,7 +6,7 @@ This project is used to scrap all the doctors list and their info from [here](ht
 Building from Source
 
 * NodeJs/npm
-*Pupperteer
+* Pupperteer
 
 1.First, clone this project repository
 
