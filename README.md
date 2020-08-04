@@ -1,4 +1,4 @@
-##scrapper using Pupperteer
+## scrapper using Pupperteer
 This project is used to scrap all the doctors list and their info from [here](https://www.psychologytoday.com/)
 
 
